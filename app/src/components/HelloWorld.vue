@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { reactive, ref } from 'vue';
-import axios from 'axios';
+import { ref } from 'vue';
+import PostsService from '../services/posts';
 
 interface IPost {
 	id: string;
@@ -12,8 +12,7 @@ interface IPost {
 const posts = ref<IPost[]>([]);
 
 async function init() {
-	const response = await axios.get('http://localhost:5000/api/v1/posts');
-	posts.value = response.data;
+	posts.value = await PostsService.findAll();
 }
 
 init();
