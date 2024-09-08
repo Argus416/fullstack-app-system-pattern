@@ -1,9 +1,18 @@
 import { Request, Response } from 'express';
 import PostService from '../services/PostService';
 import UserService from '../services/UserService';
-import { IPost } from '../models';
+import { IPost } from '../models/index';
+import { faker } from '@faker-js/faker';
+import _ from 'lodash';
 
-let posts: IPost[] = [];
+let posts: IPost[] = _.range(0, 50).map((e) => {
+	return {
+		id: new Date().getTime().toString(),
+		title: faker.food.adjective(),
+		description: faker.food.description(),
+		created_by: faker.string.uuid(),
+	};
+});
 
 class PostController {
 	findAll(req: Request, res: Response) {
